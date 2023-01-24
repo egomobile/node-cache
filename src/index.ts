@@ -16,7 +16,7 @@ const DATASETS: IDataSet[] = [];
 
 export interface IDataSet {
     key: string;
-    value: string;
+    value: any;
 }
 
 export const createServer = async (): Promise<void> => {
