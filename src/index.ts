@@ -1,6 +1,6 @@
-import createServer, { json, params, query } from "@egomobile/http-server";
+import createServer, { json, query } from "@egomobile/http-server";
 
-const values: Record<string, string> = {
+const dataSets: Record<string, string> = {
     // key: 'val',
 };
 
@@ -12,10 +12,10 @@ export interface IValue {
 async function main() {
     const app = createServer();
 
-    app.post("/keys", [json()], async (request, response) => {
+    app.put("/datasets", [json()], async (request, response) => {
         const body: IValue = request.body!;
         if (body.key && body.value) {
-            values[body.key] = body.value;
+            dataSets[body.key] = body.value;
             response.writeHead(200);
         }
         else {
@@ -27,19 +27,23 @@ async function main() {
         }
     });
 
-    app.get(params("/keys/:key"), async (request, response) => {
-        const key: any = request.params!.key;
-        const value: any = values[key];
-        if (key && value) {
-            response.write(value);
+    app.get("/datasets", query(), async (request, response) => {
+        const key: any = request.query!.get("key");
+        if (key) {
+            const value: any = dataSets[key];
+            if (value) {
+                response.write(JSON.stringify({
+                    "key": key,
+                    "value": value
+                }));
+            }
+            else {
+                response.writeHead(404);
+            }
         }
         else {
-            response.writeHead(404);
+            response.write(JSON.stringify(dataSets));
         }
-    });
-
-    app.get("/keys", [query()], async (request, response) => {
-        response.write(JSON.stringify(values));
     });
 
     await app.listen();
