@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "A memory cache for Node.js",
   "main": "lib/index.js",
+  "engines": {
+    "node": ">=16.0.0 < 17",
+    "npm": ">=8.0.0 < 9"
+  },
   "scripts": {
     "build": "del ./lib && tsc",
     "dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.test.ts' --ignore 'src/test/**/*.ts' --exec node -r ts-node/register --inspect=0.0.0.0:9229 src/index.ts",
@@ -10,7 +14,7 @@
     "lint": "eslint -c .eslintrc.js --ext .ts src",
     "lint:fix": "eslint --fix -c .eslintrc.js --ext .ts src",
     "sandbox": "nodemon --watch './sandbox/index.ts' ./sandbox/index.ts --inspect=0.0.0.0:9229",
-    "start": "npm run build && node lib/index.js"
+    "start": "node lib/index.js"
   },
   "keywords": [
     "node",

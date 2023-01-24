@@ -32,6 +32,9 @@ async function main() {
         if (key) {
             const value: any = dataSets[key];
             if (value) {
+                response.writeHead(200, {
+                    "Content-Type": "application/json"
+                });
                 response.write(JSON.stringify({
                     "key": key,
                     "value": value
@@ -42,6 +45,9 @@ async function main() {
             }
         }
         else {
+            response.writeHead(200, {
+                "Content-Type": "application/json"
+            });
             response.write(JSON.stringify(dataSets));
         }
     });
