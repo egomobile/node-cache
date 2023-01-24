@@ -7,12 +7,25 @@ export interface IValue {
     value: string;
 }
 
-function findDataSet(key: string, value: string) {
+/**
+ * Find a dataset by it's key and value
+ *
+ * @param {string} key the key
+ * @param {string} value the value
+ * @returns {IValue | undefined} the dataset, if it's defined
+ */
+function findDataSet(key: string, value: string): IValue | undefined {
     return dataSets.find(dataSet => {
         return dataSet.key === key && dataSet.value === value;
     });
 }
 
+/**
+ * Find a dataset by it's key
+ *
+ * @param {string} key the key
+ * @returns {IValue | undefined} the dataset, if it's defined
+ */
 function findDataSetByKey(key: string) {
     return dataSets.find(dataSet => {
         return dataSet.key === key;
