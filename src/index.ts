@@ -1,4 +1,5 @@
-import createServer, { buffer, params, query } from "@egomobile/http-server";
+import createServer, { json, params, query, validateWithSwagger } from "@egomobile/http-server";
+import type { OpenAPIV3.OperationObject } from 'openapi-types';
 
 const values: Record<string, string> = {
     // key: 'val',
@@ -9,11 +10,22 @@ export interface IValue {
     value: string;
 }
 
+const postKeys: OpenAPIV3.OperationObject = {
+    "parameters": [
+        {
+            in: 'body',
+            name: 'key',
+            required: true
+        }
+    ],
+    "responses": {}
+}
+
 async function main() {
     const app = createServer();
 
-    app.post("/keys", [buffer()], async (request, response) => {
-        const body: IValue = JSON.parse(request.body!.toString("utf8"));
+    app.post("/keys", [json(64), validateWithSwagger(postKeys)], async (request, response) => {
+        const body: IValue = request.body!;
         if (body.key && body.value) {
             values[body.key] = body.value;
             response.writeHead(200);
