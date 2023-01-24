@@ -5,10 +5,12 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "del ./lib && tsc",
+    "dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.test.ts' --ignore 'src/test/**/*.ts' --exec node -r ts-node/register --inspect=0.0.0.0:9229 src/index.ts",
     "docs:generate": "del ./docs && typedoc --out ./docs ./src",
     "lint": "eslint -c .eslintrc.js --ext .ts src",
     "lint:fix": "eslint --fix -c .eslintrc.js --ext .ts src",
-    "sandbox": "nodemon --watch './sandbox/index.ts' ./sandbox/index.ts --inspect=0.0.0.0:9229"
+    "sandbox": "nodemon --watch './sandbox/index.ts' ./sandbox/index.ts --inspect=0.0.0.0:9229",
+    "start": "npm run build && node lib/index.js"
   },
   "keywords": [
     "node",
