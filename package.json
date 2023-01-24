@@ -11,7 +11,8 @@
     "build": "del ./lib && tsc",
     "docs:generate": "del ./docs && typedoc --out ./docs ./src",
     "lint": "eslint -c .eslintrc.js --ext .ts src",
-    "lint:fix": "eslint --fix -c .eslintrc.js --ext .ts src"
+    "lint:fix": "eslint --fix -c .eslintrc.js --ext .ts src",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "keywords": [
     "node",
