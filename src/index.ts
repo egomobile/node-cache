@@ -80,7 +80,7 @@ async function main() {
     });
 
     await app.listen();
-    console.log(`cache running on port ${app.port} ...`);
+    console.log(`service running on port ${app.port} ...`);
 }
 
 main().catch(console.error);
