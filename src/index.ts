@@ -1,4 +1,4 @@
-import createServer, { buffer, params, query } from "@egomobile/http-server";
+import createServer, { json, params, query } from "@egomobile/http-server";
 
 const values: Record<string, string> = {
     // key: 'val',
@@ -12,14 +12,18 @@ export interface IValue {
 async function main() {
     const app = createServer();
 
-    app.post("/keys", [buffer()], async (request, response) => {
-        const body: IValue = JSON.parse(request.body!.toString("utf8"));
+    app.post("/keys", [json()], async (request, response) => {
+        const body: IValue = request.body!;
         if (body.key && body.value) {
             values[body.key] = body.value;
             response.writeHead(200);
         }
         else {
-            response.writeHead(400);
+            const errorMsg: string = "Both fields, key and value need to be passed e.g.: { 'key': 'foo', 'value': 'bar' }";
+            response.writeHead(400, {
+                "Content-Length": errorMsg.length
+            });
+            response.write(errorMsg);
         }
     });
 
