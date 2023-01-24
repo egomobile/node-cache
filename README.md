@@ -16,7 +16,11 @@ npm install --save @egomobile/cache
 
 ## Usage
 
-...
+```bash
+import { createServer } from "@egomobile/cache";
+
+createServer();
+```
 
 ## Documentation
 
