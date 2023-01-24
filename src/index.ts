@@ -1,8 +1,8 @@
 import createServer, { json, query } from "@egomobile/http-server";
 
-const dataSets: IValue[] = [];
+const DATASETS: IDataSet[] = [];
 
-export interface IValue {
+export interface IDataSet {
     key: string;
     value: string;
 }
@@ -12,10 +12,10 @@ export interface IValue {
  *
  * @param {string} key the key
  * @param {string} value the value
- * @returns {IValue | undefined} the dataset, if it's defined
+ * @returns {IDataSet | undefined} the dataset, if it's defined
  */
-function findDataSet(key: string, value: string): IValue | undefined {
-    return dataSets.find(dataSet => {
+function findDataSet(key: string, value: string): IDataSet | undefined {
+    return DATASETS.find(dataSet => {
         return dataSet.key === key && dataSet.value === value;
     });
 }
@@ -24,10 +24,10 @@ function findDataSet(key: string, value: string): IValue | undefined {
  * Find a dataset by it's key
  *
  * @param {string} key the key
- * @returns {IValue | undefined} the dataset, if it's defined
+ * @returns {IDataSet | undefined} the dataset, if it's defined
  */
 function findDataSetByKey(key: string) {
-    return dataSets.find(dataSet => {
+    return DATASETS.find(dataSet => {
         return dataSet.key === key;
     });
 }
@@ -36,15 +36,15 @@ async function main() {
     const app = createServer();
 
     app.put("/datasets", [json()], async (request, response) => {
-        const body: IValue = request.body!;
+        const body: IDataSet = request.body!;
         if (body.key && body.value) {
-            const dataSet: IValue | undefined = findDataSet(body.key, body.value);
+            const dataSet: IDataSet | undefined = findDataSet(body.key, body.value);
             if (dataSet) {
-                const dataSetIndex = dataSets.indexOf(dataSet);
-                dataSets[dataSetIndex] = { "key": body.key, "value": body.value };
+                const dataSetIndex = DATASETS.indexOf(dataSet);
+                DATASETS[dataSetIndex] = { "key": body.key, "value": body.value };
             }
             else {
-                dataSets.push({ "key": body.key, "value": body.value });
+                DATASETS.push({ "key": body.key, "value": body.value });
             }
             response.writeHead(200);
         }
@@ -60,7 +60,7 @@ async function main() {
     app.get("/datasets", query(), async (request, response) => {
         const key: any = request.query!.get("key");
         if (key) {
-            const dataSet: IValue | undefined = findDataSetByKey(key);
+            const dataSet: IDataSet | undefined = findDataSetByKey(key);
             if (dataSet) {
                 response.writeHead(200, {
                     "Content-Type": "application/json"
@@ -75,12 +75,12 @@ async function main() {
             response.writeHead(200, {
                 "Content-Type": "application/json"
             });
-            response.write(JSON.stringify(dataSets));
+            response.write(JSON.stringify(DATASETS));
         }
     });
 
     await app.listen();
-    console.log(`service now running on port ${app.port} ...`);
+    console.log(`cache running on port ${app.port} ...`);
 }
 
 main().catch(console.error);
