@@ -8,19 +8,6 @@ export interface IDataSet {
 }
 
 /**
- * Find a dataset by it's key and value
- *
- * @param {string} key the key
- * @param {string} value the value
- * @returns {IDataSet | undefined} the dataset, if it's defined
- */
-function findDataSet(key: string, value: string): IDataSet | undefined {
-    return DATASETS.find(dataSet => {
-        return dataSet.key === key && dataSet.value === value;
-    });
-}
-
-/**
  * Find a dataset by it's key
  *
  * @param {string} key the key
@@ -38,7 +25,7 @@ async function main() {
     app.put("/datasets", [json()], async (request, response) => {
         const body: IDataSet = request.body!;
         if (body.key && body.value) {
-            const dataSet: IDataSet | undefined = findDataSet(body.key, body.value);
+            const dataSet: IDataSet | undefined = findDataSetByKey(body.key);
             if (dataSet) {
                 const dataSetIndex = DATASETS.indexOf(dataSet);
                 DATASETS[dataSetIndex] = { "key": body.key, "value": body.value };
