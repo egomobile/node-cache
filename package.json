@@ -1,6 +1,6 @@
 {
   "name": "@egomobile/cache",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A memory cache for Node.js",
   "main": "lib/index.js",
   "engines": {
