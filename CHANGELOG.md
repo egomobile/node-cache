@@ -1,4 +1,8 @@
-# Change Log (@egomobile/orm-pg)
+# Change Log (@egomobile/cache)
+
+## 0.3.0
+
+- allow empty string for dataset value
 
 ## 0.2.0
 

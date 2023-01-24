@@ -25,7 +25,7 @@ export const createServer = async (): Promise<void> => {
 
         app.put("/datasets", [json()], async (request, response) => {
             const body: IDataSet = request.body!;
-            if (body.key && body.value) {
+            if (body.key && typeof body.value !== "undefined") {
                 const dataSet: IDataSet | undefined = findDataSetByKey(body.key);
                 if (dataSet) {
                     const dataSetIndex = DATASETS.indexOf(dataSet);
