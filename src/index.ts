@@ -47,7 +47,7 @@ async function main() {
     });
 
     await app.listen();
-    console.log(`Server now running on port ${app.port} ...`);
+    console.log(`service now running on port ${app.port} ...`);
 }
 
 main().catch(console.error);
