@@ -1,5 +1,9 @@
 # Change Log (@egomobile/cache)
 
+## 0.4.0
+
+- fix github issues
+
 ## 0.3.0
 
 - allow empty string for dataset value
