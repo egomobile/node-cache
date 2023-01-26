@@ -1,5 +1,10 @@
 # Change Log (@egomobile/cache)
 
+## 0.5.0
+
+- refactor datasets for easier access
+
+
 ## 0.4.0
 
 - fix github issues
